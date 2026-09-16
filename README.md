@@ -63,11 +63,12 @@ CREATE PUBLICATION sales_debezium_pub FOR TABLES IN SCHEMA public;
 
 Copy [`docker/kafka-connect/postgres.connector.example.json`](docker/kafka-connect/postgres.connector.example.json)
 and change hostname, database, user, password, `topic.prefix`, slot, and
-publication. Keep:
-
-- Avro converters pointing at `http://schema-registry:8081`
-- schema history on `kafka:29094` with the `connect` SCRAM user
-- `publication.autocreate.mode=disabled`
+publication. Keep schema history on `kafka:29094` with the `connect` SCRAM
+user, and `publication.autocreate.mode=disabled`. Worker defaults are already
+Confluent Avro against `http://schema-registry:8081`, so a connector added in
+Kafbat inherits that unless you override converters. The example still sets
+them explicitly so a pasted config stays Avro even if the worker defaults
+change.
 
 ## Kafka authentication
 
